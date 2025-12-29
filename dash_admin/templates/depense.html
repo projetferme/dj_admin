@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+ <main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <!--<div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+              </div>-->
+            </div>
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <!--begin::Col-->
+              <div class="col-lg-4 col-6">
+                <!--begin::Small Box Widget 1-->
+
+              </div>
+              <!--end::Col-->
+              <div class="col-lg-4 col-6">
+                <!--begin::Small Box Widget 2-->
+                <div class="small-box text-bg-success">
+                  <div class="inner">
+                    <h3>{{ total_montant | intcomma}} frs<sup class="fs-5"></sup></h3>
+                    <h4>  Montant total</h4>
+                  </div>
+                  <svg
+                    class="small-box-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
+                    ></path>
+                  </svg>
+                  <a
+                    href="#"
+                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                  >
+                    More info <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+                <!--end::Small Box Widget 2-->
+              </div>
+              <!--end::Col-->
+           
+              <!--end::Col-->
+           
+              <!--end::Col-->
+            </div>
+            <!--end::Row-->
+
+            
+            <div class="row">
+             <!-- Formulaire Dépense -->
+<div class="col-md-12">
+   <div class="row">
+    <div class="col">
+        
+          
+  </div>
+      <div class="col">
+
+        <h4 class="mb-3 text-center fw-bold text-success" style="font-family: Georgia, serif; font-size: 1.5rem;">
+          Enregistrement des dépenses
+        </h4>
+    </div>
+   <div class="col">
+<!-- Bouton -->
+<button type="button" style="position:relative; left:190px;" 
+        class="btn btn-success" data-bs-toggle="modal" data-bs-target="#categorieModal">
+  Ajouter une catégorie
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="categorieModal" tabindex="-1" aria-labelledby="categorieModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="categorieModalLabel">Nouvelle Catégorie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" action="{% url 'depense' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="libelle" class="form-label">Nom de la catégorie</label>
+            <input type="text" class="form-control" id="libelle" name="libelle" required>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+     
+  </div>
+  </div>
+
+  <div class="container">
+  <div class="card card-success card-outline mb-4">
+    <div class="card-body">
+
+
+      {% if modifi_dep %}
+{{modifi_dep}}
+
+       <br>
+
+      <!-- Messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="col-md-12">
+        <div class="border p-3 rounded">
+          <form method="post" action="{% url 'depense' %}">
+            {% csrf_token %}
+            <div class="row mb-3">
+            
+
+              
+              <div class="col">
+                <label for="type_production">Type de production</label>
+                <select name="categorie" id="type_production" class="form-control" required>
+                  <option value="">-- Choisir un type --</option>
+                  {% for label in type_production %}
+                  <option value="{{ label.id }}" {% if label.libelle == modifi_dep.categorie.libelle %}selected{% endif %} >
+                    {{ label.libelle }}
+                  </option>
+                {% endfor %}
+                </select>
+              </div>
+
+
+              <div class="col">
+                 
+                <label for="montant">Montant (FCFA)</label>
+                <input type="number" name="montant" step="2" 
+                value="{{modifi_dep.montant}}" class="form-control" required>
+
+             <label for="montant">Date</label>
+                <input type="date" name="date" 
+                value="" class="form-control" required> 
+              
+              </div>
+               <div class="col">
+                 
+                <label for="textes">Description(Pas Obligé)</label>
+                <textarea value="{{modifi_dep.remarque}}"  placeholder="{{modifi_dep.remarque}}" name="textes" class="form-control">
+
+                </textarea>
+                <!--<input type="textarea" name="textes" step="2" 
+                value="" class="form-control" required-->
+
+            
+              
+              </div>
+
+
+            </div>
+
+
+
+            <div class="d-grid gap-2">
+              <button type="submit"  name="modifi_dep" value="{{modifi_dep.id}}" class="btn btn-success">Ajouter</button>
+            </div>
+          </form>
+      
+<br>
+
+
+
+
+
+{% else %}
+
+
+      <br>
+
+      <!-- Messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="col-md-12">
+        <div class="border p-3 rounded">
+          <form method="post" action="{% url 'depense' %}">
+            {% csrf_token %}
+            <div class="row mb-3">
+            
+
+              
+              <div class="col">
+                <label for="type_production">Type de production</label>
+                <select name="categorie" id="type_production" class="form-control" required>
+                  <option value="">-- Choisir un type --</option>
+                  {% for label in type_production %}
+                  <option value="{{ label.id }}">
+                    {{ label.libelle }}
+                  </option>
+                {% endfor %}
+                </select>
+              </div>
+
+
+              <div class="col">
+                 
+                <label for="montant">Montant (FCFA)</label>
+                <input type="number" name="montant" step="2" 
+                value="" class="form-control" required>
+
+             <label for="montant">Date</label>
+                <input type="date" name="date" 
+                value="" class="form-control" required> 
+              
+              </div>
+               <div class="col">
+                 
+                <label for="textes">Description(Pas Obligé)</label>
+                <textarea name="textes" class="form-control">
+
+                </textarea>
+                <!--<input type="textarea" name="textes" step="2" 
+                value="" class="form-control" required-->
+
+            
+              
+              </div>
+
+
+            </div>
+
+
+
+            <div class="d-grid gap-2">
+              <button type="submit" name="ajout"  value="1" class="btn btn-success">Ajouter</button>
+            </div>
+          </form>
+      
+<br>
+
+
+
+
+ {% endif %}
+
+
+  <!-- Tableau des Dépenses -->
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+    
+        <th>Libelllé</th>
+        <th>Montant</th>
+        <th>Description</th>
+
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for depense in depenses %}
+        <tr>
+          
+          <td>{{ depense.categorie.libelle }}</td>
+          <td>{{ depense.montant  | intcomma}}</td>
+          <td>{{ depense.remarque  | intcomma}}</td>
+
+          <td>{{ depense.date }}</td>
+          
+          <td>
+          
+            <a href="{% url 'supprimer_depense' depense.id %}" class="btn btn-danger btn-sm ms-6" title="Supprimer"
+               onclick="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette dépense ?');">
+              <i class="bi bi-trash"></i> 
+            </a>
+             <a href="{% url 'depense'%}?modifier={{ depense.id }}"  class="btn btn-info btn-sm " title="Modifier"
+               >
+              <i class="bi bi-pencil"></i>            
+            </a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">Aucune dépense enregistrée.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+  </div>
+      </div>
+    </div>
+  </div>
+            </div>
+            <!-- /.row (main row) -->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content-->
+      </main>
+
+<!-- Auto-close des messages -->
+<script>
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      let bsAlert = bootstrap.Alert.getOrCreateInstance(alert)
+      bsAlert.close()
+    })
+  }, 5000);
+</script>
+
+{% endblock %}

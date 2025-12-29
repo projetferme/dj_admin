@@ -1,0 +1,510 @@
+
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<!--end::Sidebar-->
+      <!--begin::App Main-->
+      <main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <!--<div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+              </div>-->
+            </div>
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <!--begin::Col-->
+              
+              
+                <div class="col-lg-3 col-6">
+                <!--begin::Small Box Widget 1-->
+
+                <div class="small-box text-bg-primary">
+                  <div class="inner">
+                    <h3>{{ capital_investi  | intcomma }}  frs</h3>
+                    <h4>💰 Capital</h4>
+                  </div>
+                  <svg
+                    class="small-box-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                    ></path>
+                  </svg>
+                  <a
+                    href="{% url "parametres" %}?page=2"
+                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                  >
+                    Ajouter <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+                <!--end::Small Box Widget 1-->
+              </div>
+              <!--end::Col-->
+              <div class="col-lg-3 col-5">
+                <!--begin::Small Box Widget 2-->
+                <div class="small-box text-bg-success">
+                  <div class="inner">
+                    <h3>{{total_Pondeuses}} <sup class="fs-5"></sup></h3>
+                    <h4>Pondeuses {{total_Pondeuse  | intcomma}}</h4>
+                  </div>
+                  <svg
+                    class="small-box-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
+                    ></path>
+                  </svg>
+                  <a
+                    href="{% url "ventes" %}"
+                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                  >
+                    Ajouter <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+                <!--end::Small Box Widget 2-->
+              </div>
+              <!--end::Col-->
+            <div class="col-lg-3 col-6">
+                <!--begin::Small Box Widget 2-->
+                <div class="small-box text-bg-success">
+                  <div class="inner">
+                    <h3>{{total_oeuf}} <sup class="fs-5"></sup></h3>
+                    <h4>🐔 Oeuf {{total_Pondeuse  | intcomma}}</h4>
+                  </div>
+                  <svg
+                    class="small-box-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
+                    ></path>
+                  </svg>
+                  <a
+                    href="{% url "ventes" %}"
+                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                  >
+                    Ajouter <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+                <!--end::Small Box Widget 2-->
+              </div>
+               <div class="col-lg-3 col-6">
+                <!--begin::Small Box Widget 3-->
+                <div class="small-box text-bg-warning">
+                  <div class="inner">
+                    <h3>{{ chiffre_affaires | intcomma }} frs</h3>
+                    <h4>📈 Chiffre d'Affaires</h4>
+                  </div>
+                  <svg
+                    class="small-box-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"
+                    ></path>
+                  </svg>
+                  <a
+                    href="#"
+                    class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                  >
+                    More info <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+                <!--end::Small Box Widget 3-->
+              </div>              
+              <!--end::Col-->
+            
+              <!--end::Col-->
+            </div>
+            <!--end::Row-->
+
+            
+            <div class="row">
+              <div class="col-lg-12 connectedSortable">
+                <div class="card mb-4">
+                 
+                  <div class="card-body">
+                    <div class="app-content">
+                          <!--begin::Container-->
+                          <div class="container-fluid">
+                            <!--begin::Row-->
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="card mb-4">
+                                 
+                                  <div class="card">
+                                    <div class="card-header">
+                                      <div class="d-flex justify-content-between">
+                                      <h3 class="card-title">Rapport</h3>
+                                      <a
+                                        href="javascript:void(0);"
+                                        class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                        >View Report</a
+                                      >
+                                    </div>
+                                      
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                      <table class="table table-striped table-hover align-middle m-0">
+                                        <thead class="table-dark">
+                                          <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Elements</th>
+                                            <th scope="col">Total</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {% for item in popularites %}
+                                            <tr>
+                                              <td>
+                                                <a href="pages/examples/invoice.html" 
+                                                  class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fw-semibold">
+                                                  {{ item.id }}
+                                                </a>
+                                              </td>
+                                              <td class="text-capitalize">{{ item.article }}</td>
+                                              <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                  <span class="fw-bold">{{ item.valeur  | intcomma     }}</span>
+                                                  <div id="table-sparkline-{{ forloop.counter }}" style="width:30px; height:78px;"></div>
+                                                </div>
+                                              </td>
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                  </div>
+
+
+                                    <!-- /.card-body -->
+                                    
+                                    <!-- /.card-footer -->
+                                  </div>
+                                </div>
+                                <!-- /.card -->
+
+                              
+                                <!-- /.card -->
+                              </div>
+                              <!-- /.col-md-6 -->
+                              <div class="col-lg-6">
+                                <div class="card mb-4">
+                                  <div class="card-header border-0">
+                                    <div class="d-flex justify-content-between">
+                                      <h3 class="card-title">💰Sales {{ chiffre_affaires  | intcomma}} Frs</h3>
+                                      <a
+                                        href="javascript:void(0);"
+                                        class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                        >View Report</a
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="card-body">
+                                    
+                                    <!-- /.d-flex -->
+
+                                    <div class="position-relative mb-4">
+                                      <div id="chart"></div>
+                                    </div>
+
+                                    
+                                  </div>
+                                </div>
+                                <!-- /.card -->
+
+                                
+                              </div>
+                              <!-- /.col-md-6 -->
+                            </div>
+                            <!--end::Row-->
+                          </div>
+                          <!--end::Container-->
+                        </div>                </div>
+              </div>
+            </div>
+            <!-- /.row (main row) -->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content-->
+      </main>
+
+
+
+
+
+ <script
+      src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="./js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    
+    <!--end::OverlayScrollbars Configure-->
+
+    <!-- OPTIONAL SCRIPTS -->
+
+    <!-- apexcharts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+      integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const types = {{ types|safe }};
+      const ca = {{ ca|safe }};
+      const quantites = {{ quantites|safe }};
+
+      // Exemple simple de double graphique (barres et ligne)
+
+      const options = {
+        series: [
+          {
+            name: 'Chiffre d\'affaires (en FCFA)',
+            type: 'column',
+            data: ca,
+          },
+          {
+            name: 'Quantité vendue',
+            type: 'line',
+            data: quantites,
+          }
+        ],
+        chart: {
+          height: 350,
+          type: 'line',
+          stacked: false,
+        },
+        stroke: {
+          width: [0, 4]
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: '50%',
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          enabledOnSeries: [1] // affiche les valeurs sur la ligne seulement
+        },
+        xaxis: {
+          categories: types,
+        },
+        yaxis: [
+          {
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: '#0d6efd'
+            },
+            labels: {
+              formatter: function (val) {
+                return val.toLocaleString() + ' FCFA'
+              },
+              style: {
+                colors: '#0d6efd',
+              }
+            },
+            title: {
+              text: "Chiffre d'affaires",
+              style: {
+                color: '#0d6efd',
+              }
+            }
+          },
+          {
+            opposite: true,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: '#20c997'
+            },
+            labels: {
+              formatter: function (val) {
+                return val.toLocaleString()
+              },
+              style: {
+                colors: '#20c997',
+              }
+            },
+            title: {
+              text: "Quantité vendue",
+              style: {
+                color: '#20c997',
+              }
+            }
+          }
+        ],
+        tooltip: {
+          shared: true,
+          intersect: false,
+          y: {
+            formatter: function (val) {
+              return val.toLocaleString();
+            }
+          }
+        },
+        legend: {
+          horizontalAlign: 'left',
+          offsetX: 40
+        }
+      };
+
+      const chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+    </script>
+
+
+    
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="./js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
+      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+      const Default = {
+        scrollbarTheme: 'os-theme-light',
+        scrollbarAutoHide: 'leave',
+        scrollbarClickScroll: true,
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+
+        // Disable OverlayScrollbars on mobile devices to prevent touch interference
+        const isMobile = window.innerWidth <= 992;
+
+        if (
+          sidebarWrapper &&
+          OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined &&
+          !isMobile
+        ) {
+          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+            scrollbars: {
+              theme: Default.scrollbarTheme,
+              autoHide: Default.scrollbarAutoHide,
+              clickScroll: Default.scrollbarClickScroll,
+            },
+          });
+        }
+      });
+    </script>
+    <!--end::OverlayScrollbars Configure-->
+
+    <!-- OPTIONAL SCRIPTS -->
+
+    <!-- apexcharts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+      integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // 1. Injecter les données Django dans une variable JS
+      const popularites = {{ popularites|safe }};
+
+      // 2. Créer un tableau de valeurs "valeur" uniquement pour les graphs
+      const valeurs = popularites.map(item => item.valeur);
+
+      // 3. Créer des sparklines dynamiques (un mini graphique par ligne)
+      popularites.forEach((item, index) => {
+        // ici on crée une mini-courbe avec des données simples qui varient légèrement
+        const data = [
+          item.valeur,
+          item.valeur * 0.8,
+          item.valeur * 1.1,
+          item.valeur * 0.9,
+          item.valeur
+        ];
+        createSparklineChart(`#table-sparkline-${index + 1}`, data);
+      });
+
+      // 4. Configurer ton pie chart avec les vraies données
+      const pie_chart_options = {
+        series: valeurs,
+        chart: {
+          type: 'donut',
+        },
+        labels: popularites.map(item => item.article),
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ['#0d6efd', '#20c997', '#ffc107', '#d63384', '#6f42c1', '#adb5bd'],
+      };
+
+      const pie_chart = new ApexCharts(document.querySelector('#pie-chart'), pie_chart_options);
+      pie_chart.render();
+    </script>
+
+      <!--end::App Main-->
+      <!--begin::Footer-->
+{% endblock %}

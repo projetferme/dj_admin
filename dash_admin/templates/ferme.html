@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-12">
+  <h4 class="mb-3 text-center fw-bold text-success" style="font-family: Georgia, serif; font-size: 1.5rem;">
+    Enregistrement des fermes
+  </h4>
+  
+<div class="container">
+  <div class="card card-success card-outline mb-4">
+    <div class="card-body">
+      <br>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="col-md-12">
+        <div class="border p-3 rounded">
+          <form method="post" action="{% url 'ferme' %}">
+            {% csrf_token %}
+            <div class="row mb-3">
+              <div class="col">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" class="form-control" required>
+              </div>
+
+              <div class="col">
+                <label for="localisation">Localisation</label>
+                <input type="text" name="localisation" id="localisation" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label for="proprietaire">Propriétaire</label>
+                <input type="text" name="proprietaire" id="proprietaire" class="form-control" required>
+              </div>
+
+              <div class="col">
+                <label for="capital_investi">Capital investi (FCFA)</label>
+                <input type="number" name="capital_investi" id="capital_investi" step="0.01" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label for="date_creation">Date de création</label>
+                <input type="date" name="date_creation" id="date_creation" class="form-control" required>
+              </div>
+
+              <div class="col">
+                <label for="commentaire">Commentaire</label>
+                <input type="text" name="commentaire" id="commentaire" class="form-control" placeholder="Observations" required>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+          </form>
+       
+     <br>
+
+  <!-- Tableau des fermes -->
+    <div class="card card-secondary card-outline">
+    <div class="card-header text-success">
+      <h5 class="card-title">Liste des lots enregistrés</h5>
+    </div>
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Nom de la ferme</th>
+        <th>Localisation</th>
+        <th>Propriétaire</th>
+        <th>Capital investi</th>
+        <th>Date de création</th>
+        <th>Commentaires</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ferme in fermes %}
+        <tr>
+          <td>{{ ferme.nom }}</td>
+          <td>{{ ferme.localisation }}</td>
+          <td>{{ ferme.proprietaire }}</td>
+          <td>{{ ferme.capital_investi|floatformat:2 }}</td>
+          <td>{{ ferme.date_creation|date:"d M Y" }}</td>
+          <td>{{ ferme.commentaire|default:"-" }}</td>
+          <td class="text-center">
+            <a href="{% url 'supprimer_ferme' ferme.id %}"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('⚠️ Voulez-vous vraiment supprimer cette ferme ?');">
+               <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center">Aucune ferme enregistrée.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+ </div>
+
+  </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+      bsAlert.close();
+    });
+  }, 5000);
+</script>
+{% endblock %}
